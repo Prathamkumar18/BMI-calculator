@@ -1,10 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/Pages/ScorePage.dart';
 import 'package:flutter_application_2/Widgets/age_weight.dart';
 import 'package:flutter_application_2/Widgets/gender_widgets.dart';
 import 'package:flutter_application_2/Widgets/height_widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:swipeable_button_view/swipeable_button_view.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   int _age = 30;
   int _weight = 50;
   bool _isFinished = false;
-  double _bmiScore = 0;
+  double _bmiScore = 0.0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,14 +74,22 @@ class _HomePageState extends State<HomePage> {
                   padding:
                       EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
                   child: SwipeableButtonView(
-                      onFinish: () {
+                      isFinished: _isFinished,
+                      onFinish: () async {
+                        await Navigator.push(
+                            context,
+                            PageTransition(
+                                child:
+                                    ScorePage(bmiScore: _bmiScore, age: _age),
+                                type: PageTransitionType.fade));
                         setState(() {
                           _isFinished = false;
                         });
                       },
                       onWaitingProcess: () {
+                        calculteBmi();
+
                         Future.delayed(Duration(seconds: 1), () {
-                          calculteBmi();
                           setState(() {
                             _isFinished = true;
                           });
@@ -98,5 +108,7 @@ class _HomePageState extends State<HomePage> {
         ));
   }
 
-  void calculteBmi() => _bmiScore = _weight / (pow(_height, 2));
+  void calculteBmi() {
+    _bmiScore = _weight / (pow(_height / 100, 2));
+  }
 }
