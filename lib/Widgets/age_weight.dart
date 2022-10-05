@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/Utils/theme.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class AgeWeightWidget extends StatefulWidget {
   final Function(int) onChange;
@@ -32,23 +34,25 @@ class _AgeWeightWidgetState extends State<AgeWeightWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
       child: Card(
-        elevation: 8,
+        elevation: 30.0,
+        color: context.canvasColor,
+        shadowColor: context.accentColor,
         shape: RoundedRectangleBorder(),
         child: Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 10,
+                height: 15,
               ),
               Text(
                 widget.title,
-                style: TextStyle(fontSize: 25),
+                style: TextStyle(color: context.accentColor, fontSize: 20),
               ),
               SizedBox(
-                height: 10,
+                height: 15,
               ),
               Row(
                 children: [
@@ -61,18 +65,21 @@ class _AgeWeightWidgetState extends State<AgeWeightWidget> {
                           widget.onChange(counter);
                         });
                       },
-                      child: Icon(Icons.remove_circle_rounded,
-                          color: Colors.blue)),
+                      child: Icon(Icons.remove_circle_outline,
+                          color: Colors.greenAccent)),
                   SizedBox(
-                    width: 15,
+                    width: 8,
                   ),
                   Text(
                     "${counter}",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        color: context.primaryColor),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
-                    width: 15,
+                    width: 6,
                   ),
                   InkWell(
                       onTap: () {
@@ -83,8 +90,8 @@ class _AgeWeightWidgetState extends State<AgeWeightWidget> {
                           widget.onChange(counter);
                         });
                       },
-                      child:
-                          Icon(Icons.add_circle_rounded, color: Colors.blue)),
+                      child: Icon(Icons.add_circle_outline,
+                          color: Colors.greenAccent)),
                 ],
               )
             ],

@@ -1,7 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:pretty_gauge/pretty_gauge.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:flutter_application_2/Utils/theme.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class ScorePage extends StatelessWidget {
   final double bmiScore;
@@ -20,6 +20,8 @@ class ScorePage extends StatelessWidget {
     setBmiInterpretation();
     return Scaffold(
       appBar: AppBar(
+        elevation: 30.0,
+        shadowColor: context.accentColor,
         centerTitle: true,
         title: Text("BMI Score"),
       ),
@@ -28,28 +30,36 @@ class ScorePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           // ignore: prefer_const_literals_to_create_immutables
           children: [
-            Text(
-              "Your Score:",
-              style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold),
-            ),
-            PrettyGauge(
-              gaugeSize: 300,
-              minValue: 0,
-              maxValue: 40,
-              segments: [
-                GaugeSegment(
-                    "UnderWeight", 18.5, Color.fromARGB(255, 236, 84, 74)),
-                GaugeSegment("Normal", 6.4, Colors.green),
-                GaugeSegment("OverWeight", 5, Colors.orange),
-                GaugeSegment("Obese", 10.1, Colors.pink),
-              ],
-              valueWidget: Text(bmiScore.toStringAsFixed(1),
-                  style: TextStyle(fontSize: 35)),
-              currentValue: bmiScore,
-              needleColor: Colors.blue,
+            Card(
+              elevation: 30.0,
+              shadowColor: context.accentColor,
+              child: Column(
+                children: [
+                  Text(
+                    "Your Score:",
+                    style: TextStyle(
+                        color: context.accentColor,
+                        fontSize: 35,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  PrettyGauge(
+                    gaugeSize: 300,
+                    minValue: 0,
+                    maxValue: 40,
+                    segments: [
+                      GaugeSegment("UnderWeight", 18.5,
+                          Color.fromARGB(255, 236, 84, 74)),
+                      GaugeSegment("Normal", 6.4, Colors.green),
+                      GaugeSegment("OverWeight", 5, Colors.orange),
+                      GaugeSegment("Obese", 10.1, Colors.pink),
+                    ],
+                    valueWidget: Text(bmiScore.toStringAsFixed(1),
+                        style: TextStyle(fontSize: 35)),
+                    currentValue: bmiScore,
+                    needleColor: Colors.blue,
+                  ),
+                ],
+              ),
             ),
             SizedBox(
               height: 12,
@@ -57,33 +67,29 @@ class ScorePage extends StatelessWidget {
             Text(
               bmiStatus!,
               style: TextStyle(
-                  fontSize: 23, fontWeight: FontWeight.bold, color: bmiColor!),
+                  fontSize: 30, fontWeight: FontWeight.bold, color: bmiColor!),
             ),
             SizedBox(
               height: 5,
             ),
             Text(
               bmiDesc!,
-              style: TextStyle(fontSize: 23, color: Colors.black),
+              style: TextStyle(fontSize: 23, color: context.accentColor),
             ),
             SizedBox(
               height: 10,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      "Re-calculate",
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    )),
-                SizedBox(
-                  width: 15,
-                ),
-              ],
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                "Re-calculate",
+                style: TextStyle(fontSize: 20, color: context.canvasColor),
+              ),
+            ),
+            SizedBox(
+              width: 15,
             ),
           ],
         ),
