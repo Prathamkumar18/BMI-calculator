@@ -1,42 +1,50 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/Utils/theme.dart';
-import 'package:flutter_application_2/Utils/theme.dart';
+import 'package:flutter_application_2/Utils/themes.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class HeightWidgets extends StatefulWidget {
-  final Function(int) onChange;
+import 'package:flutter_application_2/Utils/theme.dart';
+import 'package:flutter_application_2/Utils/theme.dart';
 
-  const HeightWidgets({super.key, required this.onChange});
+class HeightWidget extends StatefulWidget {
+  final Function(int) onChange;
+  final int lightmode;
+
+  HeightWidget(
+    this.onChange,
+    this.lightmode,
+  );
 
   @override
-  State<HeightWidgets> createState() => _HeightWidgetsState();
+  State<HeightWidget> createState() => _HeightWidgetState();
 }
 
-class _HeightWidgetsState extends State<HeightWidgets> {
+class _HeightWidgetState extends State<HeightWidget> {
   int _height = 150;
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(8.0),
+    return Container(
+      decoration: BoxDecoration(
+          color: widget.lightmode == 1 ? Colors.white : Colors.black,
+          borderRadius: BorderRadius.circular(10)),
+      padding: EdgeInsets.all(15),
       child: Card(
-        color: context.canvasColor,
-        elevation: 30.0,
         shadowColor: context.accentColor,
-        shape: RoundedRectangleBorder(),
+        color: widget.lightmode == 1 ? lightbackground : darkbackground,
+        elevation: 3.0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         child: Container(
           child: Column(children: [
-            SizedBox(
-              height: 10,
-            ),
             Text(
               "Height:",
               style: TextStyle(
-                  color: context.accentColor,
-                  fontSize: 30,
+                  color: widget.lightmode == 1 ? Colors.black : Colors.white,
+                  fontSize: 25,
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(
-              height: 10,
+              height: 5,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -44,9 +52,10 @@ class _HeightWidgetsState extends State<HeightWidgets> {
                 Text(
                   "${_height}",
                   style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: context.primaryColor),
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: widget.lightmode == 1 ? Colors.blue : Colors.green,
+                  ),
                 ),
                 SizedBox(
                   width: 5,
@@ -54,15 +63,16 @@ class _HeightWidgetsState extends State<HeightWidgets> {
                 Text(
                   "cm",
                   style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: context.primaryColor),
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: widget.lightmode == 1 ? Colors.blue : Colors.green,
+                  ),
                 ),
               ],
             ),
             Slider(
                 thumbColor: Color.fromARGB(255, 175, 76, 152),
-                activeColor: context.cardColor,
+                activeColor: Colors.white,
                 inactiveColor: Color.fromARGB(255, 68, 139, 216),
                 min: 0,
                 max: 250,
